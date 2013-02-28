@@ -18,6 +18,7 @@ HOST = i686-w64-mingw32
 CROSSPREFIX = $(HOST)-
 
 GIT = git
+TRUE = true
 
 all: L-SMASH-Works.AviUtl.stamp L-SMASH-Works.VapourSynth.stamp
 .PHONY: all
@@ -46,7 +47,7 @@ L-SMASH.stamp: L-SMASH
 zlib.stamp: zlib
 	cd $< && CHOST=$(HOST) sh ./configure --prefix=$(PWD)
 	$(MAKE) -C $< static
-	$(MAKE) -C $< install SHAREDLIBPOST=/usr/bin/true
+	$(MAKE) -C $< install SHAREDLIBPOST=$(TRUE)
 	touch $@
 
 LIBAV_COMPONENT = doc avconv avprobe avplay avdevice avfilter network \
