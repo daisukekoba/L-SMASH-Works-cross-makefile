@@ -24,16 +24,10 @@ all: L-SMASH-Works.AviUtl.stamp L-SMASH-Works.VapourSynth.stamp
 .PHONY: all
 
 L-SMASH:
-	$(GIT) clone git://github.com/silverfilain/L-SMASH.git
+	$(GIT) clone git://github.com/silverfilain/$@.git
 
-L-SMASH-Works:
-	$(GIT) clone git://github.com/VFR-maniac/L-SMASH-Works.git
-
-libav:
-	$(GIT) clone git://github.com/VFR-maniac/libav.git
-
-zlib:
-	$(GIT) clone git://github.com/VFR-maniac/zlib.git
+L-SMASH-Works libav zlib:
+	$(GIT) clone git://github.com/VFR-maniac/$@.git
 
 L-SMASH.stamp: BUILDDIR = L-SMASH.build
 L-SMASH.stamp: L-SMASH
