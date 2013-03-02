@@ -40,7 +40,7 @@ L-SMASH.stamp: L-SMASH
 
 zlib.stamp: zlib
 	cd $< && CHOST=$(HOST) sh ./configure --prefix=$(PWD)
-	$(MAKE) -C $< static
+	$(MAKE) -C $<
 	$(MAKE) -C $< install SHAREDLIBPOST=$(TRUE)
 	touch $@
 
