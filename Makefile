@@ -75,7 +75,8 @@ L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
 L-SMASH-Works.VapourSynth.stamp: BUILDDIR = L-SMASH-Works/VapourSynth.build
 L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
-	cd $(BUILDDIR) && sh ../VapourSynth/configure --cross-prefix=$(CROSSPREFIX) \
+	cd $(BUILDDIR) && sh ../VapourSynth/configure \
+		--target-os=mingw32 --cross-prefix=$(CROSSPREFIX) \
 		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
 		--extra-libs="-lz"
 	$(MAKE) -C $(BUILDDIR)
