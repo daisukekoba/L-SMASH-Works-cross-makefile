@@ -67,9 +67,9 @@ L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
 		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
 		--extra-libs="-lz"
 	$(MAKE) -C $(BUILDDIR)
-	cp $(BUILDDIR)/lsmashinput.aui .
-	cp $(BUILDDIR)/lsmashmuxer.auf .
-	cp $(BUILDDIR)/lsmashdumper.auf .
+	cp $(BUILDDIR)/lwinput.aui .
+	cp $(BUILDDIR)/lwmuxer.auf .
+	cp $(BUILDDIR)/lwdumper.auf .
 	touch $@
 
 L-SMASH-Works.VapourSynth.stamp: BUILDDIR = L-SMASH-Works/VapourSynth.build
