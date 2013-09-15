@@ -83,3 +83,9 @@ L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.st
 	cp $(BUILDDIR)/vslsmashsource.dll .
 	touch $@
 
+clean:
+	$(RM) *.stamp
+	$(RM) -r *.build
+	$(MAKE) -C zlib clean
+.PHONY: clean
+
