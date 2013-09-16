@@ -90,6 +90,7 @@ L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zl
 		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
 		--extra-libs="-lz"
 	$(MAKE) -C $(BUILDDIR)
+	cp $(BUILDDIR)/lwcolor.auc .
 	cp $(BUILDDIR)/lwinput.aui .
 	cp $(BUILDDIR)/lwmuxer.auf .
 	cp $(BUILDDIR)/lwdumper.auf .
