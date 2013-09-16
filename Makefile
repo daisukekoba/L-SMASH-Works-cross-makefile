@@ -86,6 +86,7 @@ L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.st
 clean:
 	$(RM) *.stamp
 	$(RM) -r *.build
+	$(RM) -r L-SMASH-Works/*.build
 	$(MAKE) -C zlib clean
 .PHONY: clean
 
