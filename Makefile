@@ -17,6 +17,10 @@
 HOST = i686-w64-mingw32
 CROSSPREFIX = $(HOST)-
 
+# select ffmpeg/libav
+FFMPEG_LIBAV = libav
+# FFMPEG_LIBAV = ffmpeg
+
 GIT = git
 TRUE = true
 
@@ -28,6 +32,9 @@ L-SMASH:
 
 L-SMASH-Works libav zlib:
 	$(GIT) clone git://github.com/VFR-maniac/$@.git
+
+FFmpeg:
+	$(GIT) clone git://github.com/FFmpeg/$@.git
 
 L-SMASH.stamp: BUILDDIR = L-SMASH.build
 L-SMASH.stamp: L-SMASH
@@ -60,8 +67,24 @@ libav.stamp: libav zlib.stamp
 	$(MAKE) -C $(BUILDDIR) install
 	touch $@
 
+FFMPEG_COMPONENT = doc ffmpeg ffprobe ffplay avdevice avfilter network \
+	hwaccels encoders muxers outdevs devices filters
+FFMPEG_DISABLES = $(addprefix --disable-,$(FFMPEG_COMPONENT))
+
+ffmpeg.stamp: BUILDDIR = ffmpeg.build
+ffmpeg.stamp: FFmpeg zlib.stamp
+	mkdir -p $(BUILDDIR)
+	cd $(BUILDDIR) && ../$</configure --prefix=$(PWD) \
+		--enable-cross-compile --cross-prefix=$(CROSSPREFIX) \
+		--target-os=mingw32 --arch=x86 --enable-gpl --disable-yasm \
+		--disable-dxva2 $(FFMPEG_DISABLES) --enable-avresample \
+		--extra-cflags="-I$(PWD)/include" --extra-libs="-L$(PWD)/lib"
+	$(MAKE) -C $(BUILDDIR)
+	$(MAKE) -C $(BUILDDIR) install
+	touch $@
+
 L-SMASH-Works.AviUtl.stamp: BUILDDIR = L-SMASH-Works/AviUtl.build
-L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
+L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../AviUtl/configure --cross-prefix=$(CROSSPREFIX) \
 		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
@@ -73,7 +96,7 @@ L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
 	touch $@
 
 L-SMASH-Works.VapourSynth.stamp: BUILDDIR = L-SMASH-Works/VapourSynth.build
-L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp libav.stamp zlib.stamp
+L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../VapourSynth/configure \
 		--target-os=mingw32 --cross-prefix=$(CROSSPREFIX) \
