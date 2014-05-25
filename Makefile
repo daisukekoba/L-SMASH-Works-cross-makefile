@@ -87,7 +87,7 @@ L-SMASH-Works.AviUtl.stamp: BUILDDIR = L-SMASH-Works/AviUtl.build
 L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../AviUtl/configure --cross-prefix=$(CROSSPREFIX) \
-		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
+		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib -static" \
 		--extra-libs="-lz"
 	$(MAKE) -C $(BUILDDIR)
 	cp $(BUILDDIR)/lwcolor.auc .
@@ -101,7 +101,7 @@ L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).sta
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../VapourSynth/configure \
 		--target-os=mingw32 --cross-prefix=$(CROSSPREFIX) \
-		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib" \
+		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib -static" \
 		--extra-libs="-lz"
 	$(MAKE) -C $(BUILDDIR)
 	cp $(BUILDDIR)/vslsmashsource.dll .
