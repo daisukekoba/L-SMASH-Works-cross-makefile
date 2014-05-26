@@ -77,7 +77,7 @@ ffmpeg.stamp: FFmpeg zlib.stamp
 	cd $(BUILDDIR) && ../$</configure --prefix=$(PWD) \
 		--enable-cross-compile --cross-prefix=$(CROSSPREFIX) \
 		--target-os=mingw32 --arch=x86 --enable-gpl --disable-yasm \
-		--disable-dxva2 $(FFMPEG_DISABLES) --enable-avresample \
+		--disable-dxva2 $(FFMPEG_DISABLES) --enable-avresample --disable-decoder=opus \
 		--extra-cflags="-I$(PWD)/include" --extra-libs="-L$(PWD)/lib"
 	$(MAKE) -C $(BUILDDIR)
 	$(MAKE) -C $(BUILDDIR) install
