@@ -51,7 +51,7 @@ zlib.stamp: zlib
 	$(MAKE) -C $< install SHAREDLIBPOST=$(TRUE)
 	touch $@
 
-LIBAV_COMPONENT = doc avconv avprobe avplay avdevice avfilter network \
+LIBAV_COMPONENT = doc programs avdevice avfilter network \
 	hwaccels encoders muxers outdevs devices filters
 LIBAV_DISABLES = $(addprefix --disable-,$(LIBAV_COMPONENT))
 
@@ -67,7 +67,7 @@ libav.stamp: libav zlib.stamp
 	$(MAKE) -C $(BUILDDIR) install
 	touch $@
 
-FFMPEG_COMPONENT = doc ffmpeg ffprobe ffplay avdevice avfilter network \
+FFMPEG_COMPONENT = doc programs avdevice avfilter network \
 	hwaccels encoders muxers outdevs devices filters
 FFMPEG_DISABLES = $(addprefix --disable-,$(FFMPEG_COMPONENT))
 
