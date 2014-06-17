@@ -27,8 +27,8 @@ TRUE = true
 all: L-SMASH-Works.AviUtl.stamp L-SMASH-Works.VapourSynth.stamp
 .PHONY: all
 
-L-SMASH:
-	$(GIT) clone git://github.com/silverfilain/$@.git
+l-smash:
+	$(GIT) clone git://github.com/l-smash/$@.git
 
 L-SMASH-Works libav zlib:
 	$(GIT) clone git://github.com/VFR-maniac/$@.git
@@ -36,8 +36,8 @@ L-SMASH-Works libav zlib:
 FFmpeg:
 	$(GIT) clone git://github.com/FFmpeg/$@.git
 
-L-SMASH.stamp: BUILDDIR = L-SMASH.build
-L-SMASH.stamp: L-SMASH
+l-smash.stamp: BUILDDIR = l-smash.build
+l-smash.stamp: l-smash
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && ../$</configure --prefix=$(PWD) \
 		--cross-prefix=$(CROSSPREFIX)
@@ -84,7 +84,7 @@ ffmpeg.stamp: FFmpeg zlib.stamp
 	touch $@
 
 L-SMASH-Works.AviUtl.stamp: BUILDDIR = L-SMASH-Works/AviUtl.build
-L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
+L-SMASH-Works.AviUtl.stamp: L-SMASH-Works l-smash.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../AviUtl/configure --cross-prefix=$(CROSSPREFIX) \
 		--extra-cflags="-I$(PWD)/include" --extra-ldflags="-L$(PWD)/lib -static" \
@@ -97,7 +97,7 @@ L-SMASH-Works.AviUtl.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zl
 	touch $@
 
 L-SMASH-Works.VapourSynth.stamp: BUILDDIR = L-SMASH-Works/VapourSynth.build
-L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works L-SMASH.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
+L-SMASH-Works.VapourSynth.stamp: L-SMASH-Works l-smash.stamp $(FFMPEG_LIBAV).stamp zlib.stamp
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && sh ../VapourSynth/configure \
 		--target-os=mingw32 --cross-prefix=$(CROSSPREFIX) \
